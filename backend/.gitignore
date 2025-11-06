@@ -1,0 +1,9 @@
+# Ignore environment variables
+.env
+
+# Ignore Python-specific files
+__pycache__/
+*.pyc
+
+# Ignore temporary files created by the application
+/uploads/

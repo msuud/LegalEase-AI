@@ -1,0 +1,4 @@
+.landing-page-container {
+    /* Screenshot background color blend approximation */
+    background: linear-gradient(135deg, #f0f8ff 0%, #ffe9c8 50%, #f0f8ff 100%);
+}

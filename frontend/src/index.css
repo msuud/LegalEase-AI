@@ -1,0 +1,15 @@
+/* General custom styling */
+.active-le {
+  background-color: #ff8c00 !important; /* Orange background for active link */
+  color: white !important;
+}
+
+/* Fix for background color in the AuthPage side panel */
+.bg-primary {
+    background-color: #FF8C00 !important;
+}
+
+/* Ensure body takes full height */
+#root, body, html {
+    height: 100%;
+}

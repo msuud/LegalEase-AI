@@ -1,0 +1,55 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* Add this to your project's main CSS file (e.g., index.css) */
+.icon-gradient-legal {
+  /* Define the background as the gradient: Purple to Orange */
+  background: linear-gradient(135deg, #31215c, #ff8c00);
+
+  /* Make the icon transparent so the background can show through the mask */
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  /* Apply the icon shape as a mask */
+  -webkit-mask-image: currentColor;
+  mask-image: currentColor;
+
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
