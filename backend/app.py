@@ -358,13 +358,5 @@ def get_chat_history(session_id):
     })
 
 if __name__ == '__main__':
-    if os.path.exists("uploads"):
-        for file_name in os.listdir("uploads"):
-            os.remove(os.path.join("uploads", file_name))
-        # Safely remove the directory if empty
-        try:
-             os.rmdir("uploads")
-        except OSError:
-             pass 
-            
-        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
