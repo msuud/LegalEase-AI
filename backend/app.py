@@ -266,18 +266,24 @@ def chat_document():
 
     # System prompt to ground the LLM in the document context
     system_prompt = (
-        "You are a helpful, legal document chat assistant. "
-        "Your responses MUST be based ONLY on the document text provided in the context below. "
-        "Do not use external knowledge. Maintain a professional and informative tone. "
-        f"Current Document Context:\n\n{document_text[:10000]}...\n" 
+        "You are a legal-document question-answer assistant. "
+    "Your ONLY job is to answer questions strictly based on the text of the document. "
+    "Give clear, direct, factual answers. "
+    "If the document contains an explicit answer, extract it exactly. "
+    "Do NOT guess, generalize, or give vague replies. "
+    "If the answer does not exist in the document, say: "
+    "'The document does not provide this information.' "
+    "\n\n"
+    f"DOCUMENT CONTENT BELOW:\n{document_text}\n\n"
+    "ANSWER THE USER'S QUESTIONS BASED ONLY ON THE ABOVE DOCUMENT."
     )
     
     # Construct messages for the LLM
     messages = [
-        {"role": "system", "content": system_prompt},
-        *history, 
-        {"role": "user", "content": user_message}
-    ]
+    {"role": "system", "content": system_prompt},
+    *history,
+    {"role": "user", "content": user_message + "\n\nAnswer in simple, easy language."}
+]
 
     try:
         response = requests.post(

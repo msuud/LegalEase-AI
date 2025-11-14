@@ -90,10 +90,10 @@ const DashboardPage = () => {
   const documentTitle =
     sessionData?.title || recentDocuments[0]?.title || "AWAITING UPLOAD";
   const summarySectionHeading =
-    file || summary || isLoading
-      ? "Generated Summary"
-      : recentDocuments.length > 0
-      ? "Generated Summary"
+    file && !summary
+      ? file.name // show document name before summary
+      : summary
+      ? "Generated Summary" // once summary exists
       : "Upload a Document";
   const currentSessionId =
     sessionData?.sessionId || recentDocuments[0]?.session_id;
@@ -107,6 +107,7 @@ const DashboardPage = () => {
     setFile(null);
     setSummary("");
     setSessionData(null);
+    setShowChatModal(false);
     document.getElementById("file-upload").value = "";
   };
 
@@ -217,7 +218,7 @@ const DashboardPage = () => {
                 {uploadError && <Alert variant="danger">{uploadError}</Alert>}
 
                 {/* Summary Display Area - Only show when there's a summary or loading */}
-                {(summary || isLoading) && (
+                {(isLoading || summary) && (
                   <div className="summary-display">
                     {isLoading ? (
                       <div className="text-center p-5">

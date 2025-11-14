@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../firebase";
-import { onAuthStateChanged, getRedirectResult } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext();
-
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
@@ -11,27 +10,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleAuthFlow = async () => {
-      await getRedirectResult(auth).catch((error) => {
-        console.error("Redirect check failed:", error);
-      });
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
 
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        setCurrentUser(user);
-
-        setLoading(false);
-      });
-
-      return unsubscribe;
-    };
-
-    handleAuthFlow();
-  }, []); 
-
-  const value = { currentUser, loading };
+    return unsubscribe;
+  }, []);
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ currentUser, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );
